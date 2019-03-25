@@ -53,7 +53,8 @@ func TestToday(t *testing.T) {
 	diffHour := (target.Hour() - 1) * -1
 	target = target.Add(time.Duration(diffHour) * time.Hour)
 	result := relatedTime(target)
-	isTrue := check_regexp(`[0-2][0-9]時間前`, result)
+	fmt.Println("reslut", result)
+	isTrue := check_regexp(`([0-2][0-4]|[1-9])時間前`, result)
 	assert.False(t, isTrue)
 }
 
@@ -64,7 +65,7 @@ func TestMinuteAgo(t *testing.T) {
 	target = target.Add(time.Duration(diffMin) * time.Minute)
 	result := relatedTime(target)
 	fmt.Println("result", result)
-	isTrue := check_regexp(`[0-5][0-9]分前`, result)
+	isTrue := check_regexp(`[1-5][0-9]|[1-9]分前`, result)
 	assert.False(t, isTrue)
 }
 
@@ -75,7 +76,7 @@ func TestSecondAgo(t *testing.T) {
 	target = target.Add(time.Duration(diffSec) * time.Second)
 	result := relatedTime(target)
 	fmt.Println("result", result)
-	isTrue := check_regexp(`[0-5][0-9]秒前`, result)
+	isTrue := check_regexp(`[1-5][0-9]|[1-9]秒前`, result)
 	assert.False(t, isTrue)
 }
 
